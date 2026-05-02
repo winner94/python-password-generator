@@ -20,17 +20,21 @@ def generate_password(length, use_digits=True, use_special=True, use_upper=True)
     return password
 
 def main():
-    length = int(input("Password length: "))
-    digits = input("Contains digits (Y/N - default Y): ").strip().upper()
-    use_digits = digits != "N"
-    special = input("Contains special characters (Y/N - default Y): ").strip().upper()
-    use_special = special != "N"
-    upper = input("Contains upper cases (Y/N - default Y): ").strip().upper()
-    use_upper = upper != "N"
+    password_dict = dict()
+    print("--- PASSWORD GENERATOR ---")
+    suggestion_count = int(input("How many password suggestions you want? "))
     
-    generated_password = generate_password(length, use_digits, use_special, use_upper)
-    with open("password.txt", "wt") as f:
-        f.write(generated_password)
+    for i in range(1, suggestion_count+1):
+        length = random.randint(8, 20)
+        password_dict[i] = generate_password(length)
+
+    for k, v in password_dict.items():
+        print(f"{k}: {v}") 
+
+    password_to_save = int(input(f"Which one to save 1-{suggestion_count}: "))
+    
+    with open("password.txt", "w") as f:
+        f.write(password_dict[password_to_save])
 
 if __name__ == "__main__":
     main()
