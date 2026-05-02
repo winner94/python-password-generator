@@ -2,14 +2,7 @@ import string
 import random
 import argparse
 
-#print(string.ascii_letters)
-#print(string.digits)
-#print(string.punctuation)
-#print(random.choice("abcdef"))
-#
-
 def generate_password(length, use_digits=True, use_special=True, use_upper=True):
-    #characters = string.ascii_letters + string.digits + string.punctuation
     characters = string.ascii_letters
     if not use_upper:   characters = characters.lower()
     if use_digits:  characters += string.digits
@@ -31,7 +24,6 @@ def main():
     args = parser.parse_args()
 
     if args.length is None:
-        # no arguments given basic mode
         length = int(input("Password length: "))
         digits = input("Contains digits (Y/N - default Y): ").strip().upper()
         use_digits = digits != "N"
@@ -39,9 +31,8 @@ def main():
         use_special = special != "N"
         upper = input("Contains upper cases (Y/N - default Y): ").strip().upper()
         use_upper = upper != "N"
-        
+    
         password_to_save = generate_password(length=length, use_digits=use_digits, use_special=use_special, use_upper=use_upper)
-
     else:
         password_to_save = generate_password(args.length, use_digits=args.use_digits, use_special=args.use_special, use_upper=args.use_upper)
         print(f"Generated password: {password_to_save}\n Saving to file...")
@@ -51,8 +42,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# print(generatore_password(8))
-# print(generatore_password(12, use_digits=False))
-# print(generatore_password(8, use_special=False))
-# print(generatore_password(8, use_upper=False))
